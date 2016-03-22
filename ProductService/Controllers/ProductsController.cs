@@ -27,6 +27,7 @@ namespace ProductService.Controllers
             //ciao1
             //ciao2
             //ciao3
+            //ciao4
             return db.Products;
         }
 
