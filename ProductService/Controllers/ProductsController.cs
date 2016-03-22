@@ -30,6 +30,7 @@ namespace ProductService.Controllers
             //ciao4
             //ciao5
             //ciao6
+            //ciao7
             return db.Products;
         }
 
