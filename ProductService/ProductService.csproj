@@ -129,6 +129,10 @@
     <Compile Include="Migrations\201603211605334_Merge1.Designer.cs">
       <DependentUpon>201603211605334_Merge1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603220823468_name1onsupplier.cs" />
+    <Compile Include="Migrations\201603220823468_name1onsupplier.Designer.cs">
+      <DependentUpon>201603220823468_name1onsupplier.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductRating.cs" />
@@ -163,6 +167,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603211605334_Merge1.resx">
       <DependentUpon>201603211605334_Merge1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603220823468_name1onsupplier.resx">
+      <DependentUpon>201603220823468_name1onsupplier.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
