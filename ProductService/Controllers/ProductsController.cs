@@ -25,6 +25,7 @@ namespace ProductService.Controllers
         public IQueryable<Product> GetProducts()
         {
             //ciao1
+            //ciao2
             return db.Products;
         }
 
