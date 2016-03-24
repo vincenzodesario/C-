@@ -20,30 +20,30 @@ namespace ProductService.Controllers
     using System.Web.Http.OData.Builder;
     using ProductService.Models;
     ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
-    builder.EntitySet<Supplier>("Suppliers");
+    builder.EntitySet<Brand>("Brands");
     builder.EntitySet<Product>("Products"); 
     config.Routes.MapODataRoute("odata", "odata", builder.GetEdmModel());
     */
-    public class SuppliersController : ODataController
+    public class BrandsController : ODataController
     {
         private ProductServiceContext db = new ProductServiceContext();
 
-        // GET: odata/Suppliers
+        // GET: odata/Brands
         [Queryable]
-        public IQueryable<Supplier> GetSuppliers()
+        public IQueryable<Brand> GetBrands()
         {
-            return db.Suppliers;
+            return db.Brands;
         }
 
-        // GET: odata/Suppliers(5)
+        // GET: odata/Brands(5)
         [Queryable]
-        public SingleResult<Supplier> GetSupplier([FromODataUri] string key)
+        public SingleResult<Brand> GetBrand([FromODataUri] int key)
         {
-            return SingleResult.Create(db.Suppliers.Where(supplier => supplier.Key == key));
+            return SingleResult.Create(db.Brands.Where(brand => brand.ID == key));
         }
 
-        // PUT: odata/Suppliers(5)
-        public IHttpActionResult Put([FromODataUri] string key, Delta<Supplier> patch)
+        // PUT: odata/Brands(5)
+        public IHttpActionResult Put([FromODataUri] int key, Delta<Brand> patch)
         {
             Validate(patch.GetEntity());
 
@@ -52,13 +52,13 @@ namespace ProductService.Controllers
                 return BadRequest(ModelState);
             }
 
-            Supplier supplier = db.Suppliers.Find(key);
-            if (supplier == null)
+            Brand brand = db.Brands.Find(key);
+            if (brand == null)
             {
                 return NotFound();
             }
 
-            patch.Put(supplier);
+            patch.Put(brand);
 
             try
             {
@@ -66,7 +66,7 @@ namespace ProductService.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!SupplierExists(key))
+                if (!BrandExists(key))
                 {
                     return NotFound();
                 }
@@ -76,41 +76,26 @@ namespace ProductService.Controllers
                 }
             }
 
-            return Updated(supplier);
+            return Updated(brand);
         }
 
-        // POST: odata/Suppliers
-        public IHttpActionResult Post(Supplier supplier)
+        // POST: odata/Brands
+        public IHttpActionResult Post(Brand brand)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Suppliers.Add(supplier);
+            db.Brands.Add(brand);
+            db.SaveChanges();
 
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateException)
-            {
-                if (SupplierExists(supplier.Key))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return Created(supplier);
+            return Created(brand);
         }
 
-        // PATCH: odata/Suppliers(5)
+        // PATCH: odata/Brands(5)
         [AcceptVerbs("PATCH", "MERGE")]
-        public IHttpActionResult Patch([FromODataUri] string key, Delta<Supplier> patch)
+        public IHttpActionResult Patch([FromODataUri] int key, Delta<Brand> patch)
         {
             Validate(patch.GetEntity());
 
@@ -119,13 +104,13 @@ namespace ProductService.Controllers
                 return BadRequest(ModelState);
             }
 
-            Supplier supplier = db.Suppliers.Find(key);
-            if (supplier == null)
+            Brand brand = db.Brands.Find(key);
+            if (brand == null)
             {
                 return NotFound();
             }
 
-            patch.Patch(supplier);
+            patch.Patch(brand);
 
             try
             {
@@ -133,7 +118,7 @@ namespace ProductService.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!SupplierExists(key))
+                if (!BrandExists(key))
                 {
                     return NotFound();
                 }
@@ -143,29 +128,29 @@ namespace ProductService.Controllers
                 }
             }
 
-            return Updated(supplier);
+            return Updated(brand);
         }
 
-        // DELETE: odata/Suppliers(5)
-        public IHttpActionResult Delete([FromODataUri] string key)
+        // DELETE: odata/Brands(5)
+        public IHttpActionResult Delete([FromODataUri] int key)
         {
-            Supplier supplier = db.Suppliers.Find(key);
-            if (supplier == null)
+            Brand brand = db.Brands.Find(key);
+            if (brand == null)
             {
                 return NotFound();
             }
 
-            db.Suppliers.Remove(supplier);
+            db.Brands.Remove(brand);
             db.SaveChanges();
 
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // GET: odata/Suppliers(5)/Products
+        // GET: odata/Brands(5)/Products
         [Queryable]
-        public IQueryable<Product> GetProducts([FromODataUri] string key)
+        public IQueryable<Product> GetProducts([FromODataUri] int key)
         {
-            return db.Suppliers.Where(m => m.Key == key).SelectMany(m => m.Products);
+            return db.Brands.Where(m => m.ID == key).SelectMany(m => m.Products);
         }
 
         protected override void Dispose(bool disposing)
@@ -177,9 +162,9 @@ namespace ProductService.Controllers
             base.Dispose(disposing);
         }
 
-        private bool SupplierExists(string key)
+        private bool BrandExists(int key)
         {
-            return db.Suppliers.Count(e => e.Key == key) > 0;
+            return db.Brands.Count(e => e.ID == key) > 0;
         }
     }
 }

@@ -24,6 +24,8 @@ namespace ProductService.Models
         public System.Data.Entity.DbSet<ProductService.Models.Product> Products { get; set; }
         public System.Data.Entity.DbSet<ProductService.Models.Supplier> Suppliers { get; set; }
         public System.Data.Entity.DbSet<ProductService.Models.ProductRating> Ratings { get; set; }
+
+        public System.Data.Entity.DbSet<ProductService.Models.Brand> Brands { get; set; }
     }
 
    

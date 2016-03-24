@@ -18,6 +18,7 @@ namespace ProductService
             builder.EntitySet<Product>("Products");
             builder.EntitySet<Supplier>("Suppliers");
             builder.EntitySet<ProductRating>("Ratings");
+            builder.EntitySet<Brand>("Brands");
             ActionConfiguration rateProduct = builder.Entity<Product>().Action("RateProduct");
             rateProduct.Parameter<int>("Rating");
             rateProduct.Returns<double>();

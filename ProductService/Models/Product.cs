@@ -24,6 +24,7 @@ namespace ProductService.Models
         public string SupplierId { get; set; }
         public virtual Supplier Supplier { get; set; }
 
+        public virtual Brand Brand { get; set; }
         // Navigation
         public virtual ICollection<ProductRating> Ratings { get; set; }
     }
